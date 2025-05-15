@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulaServidor", "SimulaSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulaMultiplesColas", "SimulaMultiplesColas\SimulaMultiplesColas.csproj", "{7E5A79A9-33BF-44A4-9EBB-874774D87B89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArbolBusBin", "ArbolBB\ArbolBusBin.csproj", "{D15F2184-D48E-40E6-AC27-B7AA41223BFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7E5A79A9-33BF-44A4-9EBB-874774D87B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E5A79A9-33BF-44A4-9EBB-874774D87B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E5A79A9-33BF-44A4-9EBB-874774D87B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15F2184-D48E-40E6-AC27-B7AA41223BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15F2184-D48E-40E6-AC27-B7AA41223BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15F2184-D48E-40E6-AC27-B7AA41223BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15F2184-D48E-40E6-AC27-B7AA41223BFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
