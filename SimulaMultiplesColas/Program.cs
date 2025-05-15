@@ -18,7 +18,7 @@ namespace SimulaServidor {
 				int sim_Time, trans_Time, num_Serv, arriv_Time, arriv_Time_Dis;
 				int i = 0, c_Time = 0; //Counters
 				int customers = 0, atendidos=0, atendidosDis=0, left, wait_Time = 0;
-				Cola bankQ = new Cola();
+				
 
 				Console.Write( "\n------------------------------------------"
 					 + "\n- Bienvenido al la Simulacion de banco -"
@@ -40,34 +40,46 @@ namespace SimulaServidor {
 				arriv_Time = Convert.ToInt32(Console.ReadLine());
 
 				Cajero[] tellArray = new Cajero[num_Serv];
+                Cola[] bankQ = new Cola[num_Serv];
 
-				//Set all tellers to empty
-				for (i = 0; i < num_Serv; i++) {
+                //Set all tellers to empty
+                for (i = 0; i < num_Serv; i++) {
 					tellArray[i].Ocupado = false;
 					tellArray[i].TipoCliente = 0;
 					tellArray[i].Tiempo_Restante = 0;
-				}
+					bankQ[i] = new Cola();
+                }
 
 				while (c_Time < sim_Time) {
 
 					//PASO 1: Cada cliente que llega se va a la cola
 					if (c_Time % arriv_Time == 0) {
-						bankQ.Enqueue();
-						customers++;
-					}
-					/*
-					if (c_Time % arriv_Time_Dis == 0) {
-						bankQ.EnqueueDis();
-						customers++;
-					}
-					*/
+						//calc ind con menor cantidad de personas o cero
+						int colaMenPer = 0;
+						if (bankQ[colaMenPer].GetSize() == 0) {
+							bankQ[colaMenPer].Enqueue();
+							customers++;
+						} else {
 
+							for (i = 1; i < num_Serv; i++) {
+								if (bankQ[i].GetSize() < bankQ[colaMenPer].GetSize()) {
+									colaMenPer = i;
+                                    if (bankQ[colaMenPer].GetSize() == 0) {
+										break;
+                                    }
+                                }
+                            }
+                            bankQ[colaMenPer].Enqueue();
+                            customers++;
+                        }
+                        
+					}
 
 					//PASO2: Busca que servidor esta disponible para asignarle un cliente
 					for (i = 0; i < num_Serv; i++) {
-						if (bankQ.GetSize() > 0) {
+						if (bankQ[i].GetSize() > 0) {
 							if (tellArray[i].Ocupado == false) {
-								tellArray[i].TipoCliente = bankQ.Dequeue();
+								tellArray[i].TipoCliente = bankQ[i].Dequeue();
 								tellArray[i].Ocupado = true;
 								tellArray[i].Tiempo_Restante = trans_Time;
 							}
@@ -84,19 +96,18 @@ namespace SimulaServidor {
 
 							if (tellArray[i].TipoCliente == 1) {
 								atendidos++;
-							} /*else if (tellArray[i].TipoCliente == 2) {
-								atendidosDis++;
-							}*/
+							}
 							tellArray[i].TipoCliente = 0;
 							tellArray[i].Ocupado = false;
 						}
 					}
 
-					left = bankQ.GetSizeN();
-					int dis = bankQ.GetSizeDis();
-					//s2:{tellArray[1].Ocupado}  s3:{tellArray[2].Ocupado} 
-					Console.Write( $"\n{c_Time}-- en cola N:{left} en cola Dis:{dis} s1:{tellArray[0].Ocupado} s2:{tellArray[1].Ocupado}  atn N:{atendidos} atn D:{atendidosDis}");
-					wait_Time += left;
+					int cant1 = bankQ[0].GetSizeN();
+                    int cant2 = bankQ[1].GetSizeN();
+                    int cant3 = bankQ[2].GetSizeN();
+                    //s2:{tellArray[1].Ocupado}  s3:{tellArray[2].Ocupado} 
+                    Console.Write( $"\n{c_Time}-- en colas :{cant1} - {cant2} - {cant3} | s1:{tellArray[0].Ocupado} s2:{tellArray[1].Ocupado} s3:{tellArray[2].Ocupado} | atn N:{atendidos}");
+					wait_Time += 0;
 					c_Time++;
 				}
 
