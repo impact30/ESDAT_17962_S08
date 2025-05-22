@@ -49,6 +49,17 @@ namespace ArbolBusBin{
 
         }
 
+        public int MayorVal()
+
+        {
+            Nodo cont = Raiz;
+            while (cont.Der != null)
+            {
+                cont = cont.Der;
+            }
+            return cont.Dato;
+        }
+
 
         public void ImprimePre() {
             ImprimePreNodo(Raiz);
@@ -59,6 +70,50 @@ namespace ArbolBusBin{
                 ImprimePreNodo(n.Izq);
                 ImprimePreNodo(n.Der);
             }
+        }
+
+        public void ImprimeIn()
+        {
+            ImprimeInNodo(Raiz);
+        }
+        private void ImprimeInNodo(Nodo n)
+        {
+            if (n != null)
+            {
+                ImprimeInNodo(n.Izq);
+                Console.Write(n.Dato + ", ");
+                ImprimeInNodo(n.Der);
+            }
+        }
+
+        public void ImprimePost()
+        {
+            ImprimePostNodo(Raiz);
+        }
+        private void ImprimePostNodo(Nodo n)
+        {
+            if (n != null)
+            {
+                ImprimePostNodo(n.Izq);
+                ImprimePostNodo(n.Der);
+                Console.Write(n.Dato + ", ");
+            }
+        }
+
+        public int ContarHojas()
+        {
+            return ContarHojasNodo(Raiz);
+        }
+
+        private int ContarHojasNodo(Nodo n)
+        {
+            if (n == null)
+                return 0;
+
+            if (n.Izq == null && n.Der == null)
+                return 1;
+
+            return ContarHojasNodo(n.Izq) + ContarHojasNodo(n.Der);
         }
     }
 }
