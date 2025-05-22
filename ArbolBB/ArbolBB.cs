@@ -115,5 +115,31 @@ namespace ArbolBusBin{
 
             return ContarHojasNodo(n.Izq) + ContarHojasNodo(n.Der);
         }
+
+        public bool SonConsecutivos()
+        {
+            List<int> elementos = new List<int>();
+            ObtenerInOrden(Raiz, elementos);
+
+            for (int i = 1; i < elementos.Count; i++)
+            {
+                if (elementos[i] != elementos[i - 1] + 1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void ObtenerInOrden(Nodo n, List<int> lista)
+        {
+            if (n != null)
+            {
+                ObtenerInOrden(n.Izq, lista);
+                lista.Add(n.Dato);
+                ObtenerInOrden(n.Der, lista);
+            }
+        }
     }
 }
